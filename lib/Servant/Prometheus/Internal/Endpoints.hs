@@ -15,6 +15,7 @@ module Servant.Prometheus.Internal.Endpoints
 
 import           Servant.API        as Servant
 import           Servant.Auth       (Auth)
+import           Servant.Multipart  (MultipartForm)
 
 import           Control.Monad      (mplus)
 import           Data.Text          (Text)
@@ -90,6 +91,10 @@ instance HasEndpoints (sub :: *) => HasEndpoints (Auth l a :> sub) where
     getEndpoint _ = getEndpoint (Proxy :: Proxy sub)
 
 instance HasEndpoints (sub :: *) => HasEndpoints (AuthProtect t :> sub) where
+    getEndpoints _ = getEndpoints (Proxy :: Proxy sub)
+    getEndpoint _ = getEndpoint (Proxy :: Proxy sub)
+
+instance HasEndpoints (sub :: *) => HasEndpoints (MultipartForm t d :> sub) where
     getEndpoints _ = getEndpoints (Proxy :: Proxy sub)
     getEndpoint _ = getEndpoint (Proxy :: Proxy sub)
 
